@@ -13,24 +13,24 @@ function Service(data) {
 }
 
 index.get('/nba/services.json', function(req, res) {
-  var teams = []
+  var services = []
   var nbaSheet = new GoogleSpreadsheet('1CmdqaWY31EQ_NAgjg635fBIzL7h5gZuxQBCJ_uvNnXc');
   nbaSheet.getRows( 1, function(err, rowData){
     for (var i = 0; i < rowData.length; i++) {
-      teams.push(new Service(rowData[i]))
+      services.push(new Service(rowData[i]))
     }
-    res.send(teams)
+    res.send(services)
   })
 });
 
 index.get('/cnet/services.json', function(req, res) {
-  var teams = []
+  var services = []
   var cnetSheet = new GoogleSpreadsheet('1pFU5GMO_1VtiP4w5rEC9O-yM54qVIVNVsui3jFQRQjo');
   cnetSheet.getRows( 1, function(err, rowData){
     for (var i = 0; i < rowData.length; i++) {
-      teams.push(new Service(rowData[i]))
+      services.push(new Service(rowData[i]))
     }
-    res.send(teams)
+    res.send(services)
   })
 });
 
