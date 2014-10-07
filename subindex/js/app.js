@@ -9,13 +9,13 @@ subIndex.controller('DirectoryCtrl', [ '$scope',
                                     '$http',
   function($scope, $filter, $http) {
     $scope.services = [];
-    if (currentUrl.contains('nba')) {
-      $http( {method:'GET', url:'/nba/services.json'} )
+    if (currentUrl.contains('cnet')) {
+      $http( {method:'GET', url:'/cnet/services.json'} )
         .success(function(data,status) {
           $scope.services = data
         })
-    } else if (currentUrl.contains('cnet')) {
-      $http( {method:'GET', url:'/cnet/services.json'} )
+    } else if (currentUrl.contains('nba')) {
+      $http( {method:'GET', url:'/nba/services.json'} )
         .success(function(data,status) {
           $scope.services = data
         })
