@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>Yo Index</title>
+    <link rel="shortcut icon" href="//yoapp.s3.amazonaws.com/yo/favicon.ico">
+
+    <!-- Delete this comment. -->
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Montserrat:700,400">
+    <link href="./css/bootstrap.site.css" rel="stylesheet">
+
+    <style type="text/css">
+      .ng-cloak {
+        display: none; }
+
+      .floating-header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 999;
+        visibility: visible; }
+    </style>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.16/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="./js/app.js"></script>
+  </head>
+
+  <body ng-app="nbadex" class="ng-cloak">
+    <div id="services" ng-controller="DirectoryCtrl">
+      <div class="row service-header service">
+        <div class="col-xs-9 col-md-5 says-yo-when">Service
+          <a
+            href="http://dashboard.justyo.co/"
+            class="btn btn-primary btn-outline action-link">
+            <i class="glyphicon glyphicon-plus"></i>
+          </a>
+        </div>
+        <div class="col-xs-12 col-md-5 says-yo-when">Says Yo when</div>
+      </div>
+
+      <div class="row service-header service floating-header">
+        <div class="col-xs-8 col-md-5 says-yo-when">Service</div>
+        <div class="col-xs-8 col-md-5 says-yo-when">Says Yo When</div>
+        <div class="col-xs-4 col-md-2">
+          <a href="http://www.yoindex.com" class="btn btn-primary btn-outline pull-right">
+            <i class="glyphicon glyphicon-chevron-left center-icon"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="circus">
+        <div class="row service" ng-repeat="service in services">
+          <div class="col-xs-9 col-md-5 service-name">
+            <a
+              href="{{ service.url }}"
+              target="_blank"
+              class="btn btn-link"
+              ng-switch="service.hasOwnProperty('name')"
+            >
+              <span ng-switch-when="true">
+                {{ service.name }}
+                <sup ng-if="service.isOfficial">
+                  <i class="glyphicon glyphicon-registration-mark"></i>
+                </sup>&nbsp;
+                <i class="glyphicon glyphicon-new-window"></i>
+              </span>
+              <span ng-switch-when="false">{{ service.username }}</span>
+            </a>
+          </div>
+          <div class="col-xs-3 col-md-2 pull-right action" ng-switch="service.hasOwnProperty('username')">
+            <a
+              href="http://www.justyo.co/{{ service.username }}/"
+              ng-switch-when="true"
+              class="btn btn-primary btn-outline action-link">
+              <span class="hidden-xs">Subscribe</span>
+              <i class="glyphicon glyphicon-plus visible-xs-inline"></i>
+            </a>
+            <a
+              ng-switch-when="false"
+              href="{{ service.url }}"
+              target="_blank"
+              class="btn btn-primary btn-outline action-link">
+              <span class="hidden-xs">Open</span>
+              <i class="visible-xs-inline glyphicon glyphicon-new-window"></i>
+            </a>
+          </div>
+          <div class="col-xs-12 col-md-5 says-yo-when">{{ service.sends_yo_when }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script -->
+    <!-- script src="public/components/StickyTableHeaders/js/jquery.stickytableheaders.min.js"></script -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- script src="public/components/bootstrap/dist/js/bootstrap.min.js"></script -->
+
+    <!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">
+var sc_project=9962929;
+var sc_invisible=1;
+var sc_security="37a83ba8";
+var sc_https=1;
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="web analytics"
+href="http://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="http://c.statcounter.com/9962929/0/37a83ba8/1/"
+alt="web analytics"></a></div></noscript>
+<!-- End of StatCounter Code for Default Guide -->
+  </body>
+</html>
