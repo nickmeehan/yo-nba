@@ -38,9 +38,9 @@ index.get('/cnet/services.json', function(req, res) {
 
 express()
   .use("/", index)
-  .use("/", express.static(path.join(__dirname, 'nba')))
+  .use("/", express.static(path.join(__dirname, 'subindex')))
   .use("/nba", index)
-  .use("/nba", express.static(path.join(__dirname, 'nba')))  
+  .use("/nba", express.static(path.join(__dirname, 'subindex')))  
   .use("/cnet", index)
-  .use("/cnet", express.static(path.join(__dirname, 'nba')))  
+  .use("/cnet", express.static(path.join(__dirname, 'subindex')))  
   .listen(port)
