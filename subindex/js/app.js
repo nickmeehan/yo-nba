@@ -11,12 +11,18 @@ subIndex.controller('DirectoryCtrl', [ '$scope',
     $scope.services = [];
     if (currentUrl.contains('cnet')) {
       $('#special-head').text('CNET - The premier destination for tech news and reviews')
+      $('#extend-head').addClass('extend-service-bottom')
       $http( {method:'GET', url:'/cnet/services.json'} )
         .success(function(data,status) {
           $scope.services = data
         })
     } else if (currentUrl.contains('nba')) {
       $http( {method:'GET', url:'/nba/services.json'} )
+        .success(function(data,status) {
+          $scope.services = data
+        })
+    } else if (currentUrl.contains('dramafever')) {
+      $http( {method:'GET', url:'/dramafever/services.json'} )
         .success(function(data,status) {
           $scope.services = data
         })

@@ -34,6 +34,18 @@ index.get('/cnet/services.json', function(req, res) {
   })
 });
 
+index.get('/dramafever/services.json', function(req, res) {
+  var services = []
+  var cnetSheet = new GoogleSpreadsheet('1tpmeIMztrZkPMlQCANKaJQoFE6ZV3CUDuv5rPsTi6Mg');
+  cnetSheet.getRows( 1, function(err, rowData){
+    for (var i = 0; i < rowData.length; i++) {
+      services.push(new Service(rowData[i]))
+    }
+    res.send(services)
+  })
+});
+
+
 
 
 express()
@@ -43,4 +55,6 @@ express()
   .use("/nba", express.static(path.join(__dirname, 'subindex')))  
   .use("/cnet", index)
   .use("/cnet", express.static(path.join(__dirname, 'subindex')))  
+  .use("/dramafever", index)
+  .use("/dramafever", express.static(path.join(__dirname, 'subindex')))  
   .listen(port)
