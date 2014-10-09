@@ -10,6 +10,7 @@ subIndex.controller('DirectoryCtrl', [ '$scope',
   function($scope, $filter, $http) {
     $scope.services = [];
     if (currentUrl.contains('cnet')) {
+      $('#special-head').text('CNET - The premier destination for tech news and reviews')
       $http( {method:'GET', url:'/cnet/services.json'} )
         .success(function(data,status) {
           $scope.services = data
