@@ -6268,8 +6268,10 @@ a {
 .top-buffer {
   margin-top: 20px;
 }
-
 .center-icon {
   postion: relative;
   top: 3px;
+}
+.extend-service-bottom {
+  margin-bottom: 50px;
 }
