@@ -9,23 +9,15 @@ subIndex.controller('DirectoryCtrl', [ '$scope',
                                     '$http',
   function($scope, $filter, $http) {
     $scope.services = [];
-    if (currentUrl.contains('cnet')) {
-      $('#special-head').text('CNET - The premier destination for tech news and reviews')
+    $http( {method:'GET', url:'/services.json', params: { url: currentUrl }} )
+      .success(function(data,status) {
+        data.headline !== '' ? $scope.setHeadline(data.headline) : null
+        $scope.services = data.services;
+      })
+
+    $scope.setHeadline = function(headline) {
+      $scope.headline = headline;
       $('#extend-head').addClass('extend-service-bottom')
-      $http( {method:'GET', url:'/cnet/services.json'} )
-        .success(function(data,status) {
-          $scope.services = data
-        })
-    } else if (currentUrl.contains('nba')) {
-      $http( {method:'GET', url:'/nba/services.json'} )
-        .success(function(data,status) {
-          $scope.services = data
-        })
-    } else if (currentUrl.contains('dramafever')) {
-      $http( {method:'GET', url:'/dramafever/services.json'} )
-        .success(function(data,status) {
-          $scope.services = data
-        })
     }
   }
 ])

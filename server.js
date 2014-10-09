@@ -5,6 +5,10 @@ var express = require('express')
 
 var index = express.Router();
 
+String.prototype.contains = function(subString) {
+  return this.indexOf(subString) != -1
+}
+
 function Service(data) {
   this.name = data.name;
   this.username = data.username;
@@ -12,41 +16,32 @@ function Service(data) {
   this.url = data.url;
 }
 
-index.get('/nba/services.json', function(req, res) {
+function SubIndex(data) {
+  this.urlMustContain = data.urlmustcontain;
+  this.spreadsheetKey = data.spreadsheetkey;
+  this.headline = data.headline;
+}
+
+index.get('/services.json', function(req, res) {
   var services = []
-  var nbaSheet = new GoogleSpreadsheet('1CmdqaWY31EQ_NAgjg635fBIzL7h5gZuxQBCJ_uvNnXc');
-  nbaSheet.getRows( 1, function(err, rowData){
+  var currentUrl = req.query.url
+  var subIndexesSheet = new GoogleSpreadsheet('13Uzdff6JR7f6KrxaTiAqfhgAJostR4GtXb4XeX09x3s');
+  subIndexesSheet.getRows( 1, function(err, rowData){
     for (var i = 0; i < rowData.length; i++) {
-      services.push(new Service(rowData[i]))
+      var subIndex = new SubIndex(rowData[i])
+      if (currentUrl.contains(subIndex.urlMustContain)) {
+        var headline = subIndex.headline;
+        var serviceSpreadsheet = new GoogleSpreadsheet(subIndex.spreadsheetKey)
+        serviceSpreadsheet.getRows( 1, function(err, nestedRowData) {
+          for (var j = 0; j < nestedRowData.length; j++) {
+            services.push(new Service(nestedRowData[j]))
+          }
+          res.send({ headline: headline, services: services})
+        })
+      }
     }
-    res.send(services)
   })
 });
-
-index.get('/cnet/services.json', function(req, res) {
-  var services = []
-  var cnetSheet = new GoogleSpreadsheet('1pFU5GMO_1VtiP4w5rEC9O-yM54qVIVNVsui3jFQRQjo');
-  cnetSheet.getRows( 1, function(err, rowData){
-    for (var i = 0; i < rowData.length; i++) {
-      services.push(new Service(rowData[i]))
-    }
-    res.send(services)
-  })
-});
-
-index.get('/dramafever/services.json', function(req, res) {
-  var services = []
-  var cnetSheet = new GoogleSpreadsheet('1tpmeIMztrZkPMlQCANKaJQoFE6ZV3CUDuv5rPsTi6Mg');
-  cnetSheet.getRows( 1, function(err, rowData){
-    for (var i = 0; i < rowData.length; i++) {
-      services.push(new Service(rowData[i]))
-    }
-    res.send(services)
-  })
-});
-
-
-
 
 express()
   .use("/", index)
